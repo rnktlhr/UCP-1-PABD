@@ -21,5 +21,20 @@ namespace UCP_1_PABD
         {
 
         }
+
+        private void B2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void B3(object sender, EventArgs e)
+        {
+
+        }
+
+        private void B4(object sender, EventArgs e)
+        {
+
+        }
     }
 }
