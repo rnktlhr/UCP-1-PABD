@@ -49,6 +49,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dgvMobil = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
+            this.txtIDMobil = new System.Windows.Forms.TextBox();
+            this.IDMobil = new System.Windows.Forms.Label();
+            this.txtNIKar = new System.Windows.Forms.TextBox();
+            this.NikKar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMobil)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +60,7 @@
             // 
             this.Input.Location = new System.Drawing.Point(744, 39);
             this.Input.Name = "Input";
-            this.Input.Size = new System.Drawing.Size(75, 23);
+            this.Input.Size = new System.Drawing.Size(75, 32);
             this.Input.TabIndex = 0;
             this.Input.Text = "Input";
             this.Input.UseVisualStyleBackColor = true;
@@ -66,7 +70,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(744, 91);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 31);
             this.button1.TabIndex = 1;
             this.button1.Text = "Update";
             this.button1.UseVisualStyleBackColor = true;
@@ -76,7 +80,7 @@
             // 
             this.button2.Location = new System.Drawing.Point(744, 147);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(75, 32);
             this.button2.TabIndex = 2;
             this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
@@ -217,24 +221,61 @@
             this.dgvMobil.Name = "dgvMobil";
             this.dgvMobil.RowHeadersWidth = 51;
             this.dgvMobil.RowTemplate.Height = 24;
-            this.dgvMobil.Size = new System.Drawing.Size(934, 271);
+            this.dgvMobil.Size = new System.Drawing.Size(1027, 271);
             this.dgvMobil.TabIndex = 19;
+            this.dgvMobil.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMobil_CellClick);
             // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(744, 204);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(75, 31);
             this.button3.TabIndex = 20;
             this.button3.Text = "Refresh";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.B4);
             // 
+            // txtIDMobil
+            // 
+            this.txtIDMobil.Location = new System.Drawing.Point(358, 8);
+            this.txtIDMobil.Name = "txtIDMobil";
+            this.txtIDMobil.Size = new System.Drawing.Size(283, 22);
+            this.txtIDMobil.TabIndex = 21;
+            // 
+            // IDMobil
+            // 
+            this.IDMobil.AutoSize = true;
+            this.IDMobil.Location = new System.Drawing.Point(41, 13);
+            this.IDMobil.Name = "IDMobil";
+            this.IDMobil.Size = new System.Drawing.Size(53, 16);
+            this.IDMobil.TabIndex = 22;
+            this.IDMobil.Text = "IDMobil";
+            // 
+            // txtNIKar
+            // 
+            this.txtNIKar.Location = new System.Drawing.Point(358, 261);
+            this.txtNIKar.Name = "txtNIKar";
+            this.txtNIKar.Size = new System.Drawing.Size(283, 22);
+            this.txtNIKar.TabIndex = 23;
+            // 
+            // NikKar
+            // 
+            this.NikKar.AutoSize = true;
+            this.NikKar.Location = new System.Drawing.Point(41, 266);
+            this.NikKar.Name = "NikKar";
+            this.NikKar.Size = new System.Drawing.Size(47, 16);
+            this.NikKar.TabIndex = 24;
+            this.NikKar.Text = "NikKar";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 629);
+            this.ClientSize = new System.Drawing.Size(1101, 643);
+            this.Controls.Add(this.NikKar);
+            this.Controls.Add(this.txtNIKar);
+            this.Controls.Add(this.IDMobil);
+            this.Controls.Add(this.txtIDMobil);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.dgvMobil);
             this.Controls.Add(this.label8);
@@ -258,6 +299,7 @@
             this.Controls.Add(this.Input);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMobil)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -287,6 +329,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView dgvMobil;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txtIDMobil;
+        private System.Windows.Forms.Label IDMobil;
+        private System.Windows.Forms.TextBox txtNIKar;
+        private System.Windows.Forms.Label NikKar;
     }
 }
 
