@@ -298,7 +298,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Input);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "FormMobil";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMobil)).EndInit();
             this.ResumeLayout(false);
