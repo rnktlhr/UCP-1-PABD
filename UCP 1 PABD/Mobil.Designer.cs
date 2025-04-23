@@ -1,6 +1,6 @@
 ﻿namespace UCP_1_PABD
 {
-    partial class Form1
+    partial class Mobil
     {
         /// <summary>
         /// Required designer variable.

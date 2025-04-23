@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace UCP_1_PABD
 {
-    public partial class Form1 : Form
+    public partial class Mobil : Form
     {
         private string connectionString = "Data Source= LAPTOP-872LO0G1\\RINAKIT;Initial Catalog=SowroomMobil;Integrated Security=True";
-        public Form1()
+        public Mobil()
         {
             InitializeComponent();
         }
