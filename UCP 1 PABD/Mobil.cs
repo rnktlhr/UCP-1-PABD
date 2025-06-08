@@ -51,8 +51,6 @@ namespace UCP_1_PABD
 
                     dgvMobil.AutoGenerateColumns = true;
                     dgvMobil.DataSource = dt;
-
-                    ClearForm();
                 }
                 catch (Exception ex)
                 {
@@ -87,8 +85,6 @@ namespace UCP_1_PABD
                         cmd.Parameters.AddWithValue("@Status", txtStatus.Text.Trim());
                         cmd.Parameters.AddWithValue("@Deskripsi", txtDeskripsi.Text.Trim());
                         cmd.Parameters.AddWithValue("@NIKar", txtNIKar.Text.Trim());
-
-
 
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
@@ -138,8 +134,6 @@ namespace UCP_1_PABD
                         cmd.Parameters.AddWithValue("@Status", txtStatus.Text.Trim());
                         cmd.Parameters.AddWithValue("@Deskripsi", txtDeskripsi.Text.Trim());
                         cmd.Parameters.AddWithValue("@NIKar", txtNIKar.Text.Trim());
-
-
 
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
@@ -206,8 +200,6 @@ namespace UCP_1_PABD
         private void B4(object sender, EventArgs e)
         {
             LoadData();
-            MessageBox.Show($"Jumlah Kolom: {dgvMobil.ColumnCount}\nJumlah Baris: {dgvMobil.RowCount}",
-                "Debugging DataGridView", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
        
