@@ -273,5 +273,12 @@ namespace UCP_1_PABD
         {
             LoadJoinedData();
         }
+
+        private void btn_mobil(object sender, EventArgs e)
+        {
+            Mobil Mobil = new Mobil();
+            Mobil.Show();
+            this.Hide();
+        }
     }
 }

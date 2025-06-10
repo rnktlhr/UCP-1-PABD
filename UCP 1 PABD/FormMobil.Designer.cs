@@ -48,6 +48,7 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.txttahun = new System.Windows.Forms.Label();
             this.textTahun = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,9 +145,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(583, 40);
+            this.button1.Location = new System.Drawing.Point(583, 30);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 33);
             this.button1.TabIndex = 11;
             this.button1.Text = "Tambah";
             this.button1.UseVisualStyleBackColor = true;
@@ -154,9 +155,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(583, 80);
+            this.button2.Location = new System.Drawing.Point(664, 30);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(75, 33);
             this.button2.TabIndex = 12;
             this.button2.Text = "Update";
             this.button2.UseVisualStyleBackColor = true;
@@ -164,9 +165,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(583, 127);
+            this.button3.Location = new System.Drawing.Point(583, 82);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(75, 32);
             this.button3.TabIndex = 13;
             this.button3.Text = "Hapus";
             this.button3.UseVisualStyleBackColor = true;
@@ -174,9 +175,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(583, 171);
+            this.button4.Location = new System.Drawing.Point(664, 82);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(75, 32);
             this.button4.TabIndex = 14;
             this.button4.Text = "Refresh";
             this.button4.UseVisualStyleBackColor = true;
@@ -223,11 +224,22 @@
             this.textTahun.Size = new System.Drawing.Size(304, 22);
             this.textTahun.TabIndex = 19;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(621, 136);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 31);
+            this.button5.TabIndex = 20;
+            this.button5.Text = "Mobil";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.btn_mobil);
+            // 
             // FormMobil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.textTahun);
             this.Controls.Add(this.txttahun);
             this.Controls.Add(this.lblMessage);
@@ -278,5 +290,6 @@
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Label txttahun;
         private System.Windows.Forms.TextBox textTahun;
+        private System.Windows.Forms.Button button5;
     }
 }

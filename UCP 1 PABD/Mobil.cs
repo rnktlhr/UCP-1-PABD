@@ -431,5 +431,12 @@ namespace UCP_1_PABD
             formMobil.Show();
             this.Hide();
         }
+
+        private void Btn_export(object sender, EventArgs e)
+        {
+            FormShowroom formShowroom = new FormShowroom();
+            formShowroom.Show();
+            this.Hide();
+        }
     }
 }

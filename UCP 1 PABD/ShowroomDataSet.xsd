@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ShowroomDataSet" targetNamespace="http://tempuri.org/ShowroomDataSet.xsd" xmlns:mstns="http://tempuri.org/ShowroomDataSet.xsd" xmlns="http://tempuri.org/ShowroomDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SowroomMobilConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SowroomMobilConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.UCP_1_PABD.Properties.Settings.GlobalReference.Default.SowroomMobilConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SowroomMobilConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT Mobil.ID_Mobil, Mobil.Merek, Mobil.Tahun_Produksi, Mobil.Type_Mobil, Mobil.Deskripsi, Mobil.Harga, Karyawan.Nama_Kar
+FROM     Mobil INNER JOIN
+                  Karyawan ON Mobil.NIKar = Karyawan.NIKar</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID_Mobil" DataSetColumn="ID_Mobil" />
+              <Mapping SourceColumn="Merek" DataSetColumn="Merek" />
+              <Mapping SourceColumn="Tahun_Produksi" DataSetColumn="Tahun_Produksi" />
+              <Mapping SourceColumn="Type_Mobil" DataSetColumn="Type_Mobil" />
+              <Mapping SourceColumn="Deskripsi" DataSetColumn="Deskripsi" />
+              <Mapping SourceColumn="Harga" DataSetColumn="Harga" />
+              <Mapping SourceColumn="Nama_Kar" DataSetColumn="Nama_Kar" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ShowroomDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="ShowroomDataSet" msprop:Generator_DataSetName="ShowroomDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_UserTableName="DataTable1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_Mobil" msprop:Generator_ColumnPropNameInRow="ID_Mobil" msprop:Generator_ColumnPropNameInTable="ID_MobilColumn" msprop:Generator_ColumnVarNameInTable="columnID_Mobil" msprop:Generator_UserColumnName="ID_Mobil">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Merek" msprop:Generator_ColumnPropNameInRow="Merek" msprop:Generator_ColumnPropNameInTable="MerekColumn" msprop:Generator_ColumnVarNameInTable="columnMerek" msprop:Generator_UserColumnName="Merek">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Tahun_Produksi" msprop:Generator_ColumnPropNameInRow="Tahun_Produksi" msprop:Generator_ColumnPropNameInTable="Tahun_ProduksiColumn" msprop:Generator_ColumnVarNameInTable="columnTahun_Produksi" msprop:Generator_UserColumnName="Tahun_Produksi" type="xs:int" />
+              <xs:element name="Type_Mobil" msprop:Generator_ColumnPropNameInRow="Type_Mobil" msprop:Generator_ColumnPropNameInTable="Type_MobilColumn" msprop:Generator_ColumnVarNameInTable="columnType_Mobil" msprop:Generator_UserColumnName="Type_Mobil">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Deskripsi" msprop:Generator_ColumnPropNameInRow="Deskripsi" msprop:Generator_ColumnPropNameInTable="DeskripsiColumn" msprop:Generator_ColumnVarNameInTable="columnDeskripsi" msprop:Generator_UserColumnName="Deskripsi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Harga" msprop:Generator_ColumnPropNameInRow="Harga" msprop:Generator_ColumnPropNameInTable="HargaColumn" msprop:Generator_ColumnVarNameInTable="columnHarga" msprop:Generator_UserColumnName="Harga" type="xs:decimal" />
+              <xs:element name="Nama_Kar" msprop:Generator_ColumnPropNameInRow="Nama_Kar" msprop:Generator_ColumnPropNameInTable="Nama_KarColumn" msprop:Generator_ColumnVarNameInTable="columnNama_Kar" msprop:Generator_UserColumnName="Nama_Kar">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable1" />
+      <xs:field xpath="mstns:ID_Mobil" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
