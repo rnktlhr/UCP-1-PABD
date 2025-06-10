@@ -53,6 +53,9 @@
             this.IDMobil = new System.Windows.Forms.Label();
             this.txtNIKar = new System.Windows.Forms.TextBox();
             this.NikKar = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMobil)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,7 +184,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(38, 154);
+            this.label5.Location = new System.Drawing.Point(38, 151);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 16);
             this.label5.TabIndex = 15;
@@ -190,7 +193,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(41, 181);
+            this.label6.Location = new System.Drawing.Point(38, 182);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 16);
             this.label6.TabIndex = 16;
@@ -199,7 +202,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(41, 209);
+            this.label7.Location = new System.Drawing.Point(38, 207);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 16);
             this.label7.TabIndex = 17;
@@ -245,7 +248,7 @@
             // IDMobil
             // 
             this.IDMobil.AutoSize = true;
-            this.IDMobil.Location = new System.Drawing.Point(41, 13);
+            this.IDMobil.Location = new System.Drawing.Point(38, 14);
             this.IDMobil.Name = "IDMobil";
             this.IDMobil.Size = new System.Drawing.Size(53, 16);
             this.IDMobil.TabIndex = 22;
@@ -261,17 +264,50 @@
             // NikKar
             // 
             this.NikKar.AutoSize = true;
-            this.NikKar.Location = new System.Drawing.Point(41, 266);
+            this.NikKar.Location = new System.Drawing.Point(38, 264);
             this.NikKar.Name = "NikKar";
             this.NikKar.Size = new System.Drawing.Size(47, 16);
             this.NikKar.TabIndex = 24;
             this.NikKar.Text = "NikKar";
             // 
-            // Form1
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(861, 39);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 32);
+            this.button4.TabIndex = 25;
+            this.button4.Text = "Import";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.btn_import);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(861, 91);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 30);
+            this.button5.TabIndex = 26;
+            this.button5.Text = "Analisis";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.btn_analisis);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(861, 147);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 32);
+            this.button6.TabIndex = 27;
+            this.button6.Text = "Form Mobil";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.btn_form);
+            // 
+            // Mobil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1101, 643);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.NikKar);
             this.Controls.Add(this.txtNIKar);
             this.Controls.Add(this.IDMobil);
@@ -297,7 +333,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Input);
-            this.Name = "Form1";
+            this.Name = "Mobil";
             this.Text = "FormMobil";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMobil)).EndInit();
@@ -333,6 +369,9 @@
         private System.Windows.Forms.Label IDMobil;
         private System.Windows.Forms.TextBox txtNIKar;
         private System.Windows.Forms.Label NikKar;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
 
