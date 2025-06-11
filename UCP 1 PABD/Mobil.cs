@@ -227,8 +227,6 @@ namespace UCP_1_PABD
                                    "Pemilik = @Pemilik, Jenis_Mobil = @Jenis_Mobil, Harga = @Harga, Status = @Status, Deskripsi = @Deskripsi, NIKar = @NIKar " +
                                    "WHERE ID_Mobil = @ID_Mobil";
 
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
                         cmd.Parameters.AddWithValue("@ID_Mobil", txtIDMobil.Text.Trim());
                         cmd.Parameters.AddWithValue("@Merek", txtMerekMobil.Text.Trim());
                         cmd.Parameters.AddWithValue("@Tahun_Produksi", int.Parse(txtTahunProduksi.Text.Trim()));
