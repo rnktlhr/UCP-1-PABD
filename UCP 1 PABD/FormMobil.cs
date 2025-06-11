@@ -136,56 +136,69 @@ namespace UCP_1_PABD
 
         private void btn_update(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(selectedIDMobil))
+            if (selectedIDMobil == "")
             {
-                MessageBox.Show("Silakan pilih data yang ingin diubah.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblMessage.Text = "Pilih data mobil yang ingin diubah.";
                 return;
             }
 
+            // Ambil data dari textboxes untuk update
             string merek = txtMerek.Text.Trim();
             string tipe = txtTipe.Text.Trim();
             string deskripsi = txtDeskripsi.Text.Trim();
             int tahun;
+            decimal harga;
 
+            // Validasi input
             if (string.IsNullOrEmpty(merek) || string.IsNullOrEmpty(tipe) ||
-                !decimal.TryParse(txtHarga.Text, out harga) ||
-                !int.TryParse(textTahun.Text, out tahun))
+                !int.TryParse(textTahun.Text.Trim(), out tahun) ||
+                !decimal.TryParse(txtHarga.Text.Trim(), out harga))
             {
-                MessageBox.Show("Format input salah. Tahun dan harga harus angka.", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lblMessage.Text = "Isi semua kolom dengan data yang sesuai.";
                 return;
             }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                SqlTransaction transaction = null;
+
                 try
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(@"
-                UPDATE Mobil
-                SET Merek = @Merek, Tahun_Produksi = @Tahun, Type_Mobil = @Tipe, Deskripsi = @Deskripsi, Harga = @Harga
-                WHERE ID_Mobil = @ID", conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Merek", merek);
-                        cmd.Parameters.AddWithValue("@Tipe", tipe);
-                        cmd.Parameters.AddWithValue("@Deskripsi", deskripsi);
-                        cmd.Parameters.AddWithValue("@Harga", harga);
-                        cmd.Parameters.AddWithValue("@ID", selectedIDMobil);
+                    transaction = conn.BeginTransaction();
 
-                        int rows = cmd.ExecuteNonQuery();
-                        if (rows > 0)
-                        {
-                            lblMessage.Text = "Data berhasil diperbarui.";
-                            LoadJoinedData();
-                        }
-                        else
-                        {
-                            lblMessage.Text = "Data tidak ditemukan.";
-                        }
-                    }
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        Connection = conn,
+                        Transaction = transaction
+                    };
+
+                    // Update tabel Mobil
+                    cmd.CommandText = @"UPDATE Mobil 
+                                SET Merek = @Merek, 
+                                    Type_Mobil = @Tipe, 
+                                    Deskripsi = @Deskripsi, 
+                                    Tahun_Produksi = @Tahun, 
+                                    Harga = @Harga 
+                                WHERE ID_Mobil = @ID_Mobil";
+
+                    cmd.Parameters.AddWithValue("@Merek", merek);
+                    cmd.Parameters.AddWithValue("@Tipe", tipe);
+                    cmd.Parameters.AddWithValue("@Deskripsi", deskripsi);
+                    cmd.Parameters.AddWithValue("@Tahun", tahun);
+                    cmd.Parameters.AddWithValue("@Harga", harga);
+                    cmd.Parameters.AddWithValue("@ID_Mobil", selectedIDMobil);
+
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    lblMessage.Text = "Data mobil berhasil diubah.";
+                    LoadJoinedData(); // reload data setelah update
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Gagal update: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    transaction?.Rollback();
+                    lblMessage.Text = "Error: " + ex.Message;
                 }
             }
         }

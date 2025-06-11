@@ -23,7 +23,7 @@ namespace UCP_1_PABD
     {
         private string connectionString = "Data Source= LAPTOP-872LO0G1\\RINAKIT;Initial Catalog=SowroomMobil;Integrated Security=True";
 
-        // Inisialisasi cache dan kebijakan kadaluarsa untuk data Mobil
+       
         private readonly MemoryCache _cache = MemoryCache.Default;
 
         private readonly CacheItemPolicy _policy = new CacheItemPolicy
@@ -108,6 +108,7 @@ namespace UCP_1_PABD
         private void LoadData()
         {
             DataTable dt;
+
             if (_cache.Contains(CacheKey))
             {
                 dt = _cache.Get(CacheKey) as DataTable;
@@ -134,11 +135,14 @@ namespace UCP_1_PABD
                     var da = new SqlDataAdapter(query, conn);
                     da.Fill(dt);
                 }
+
                 _cache.Add(CacheKey, dt, _policy);
             }
 
             dgvMobil.AutoGenerateColumns = true;
             dgvMobil.DataSource = dt;
+
+
         }
 
         private void AnalyzeQuery(string sqlQuery)
@@ -167,26 +171,30 @@ namespace UCP_1_PABD
             {
                 try
                 {
-                    if (txtIDMobil.Text == "" || txtMerekMobil.Text == "" || txtTahunProduksi.Text == "" ||
-                        txtTypeMobil.Text == "" || txtPemilik.Text == "" || txtJenisMobil.Text == "" ||
-                        txtHarga.Text == "" || txtStatus.Text == "" || txtDeskripsi.Text == "" || txtNIKar.Text == "")
+                    // Validasi input
+                    if (string.IsNullOrWhiteSpace(txtIDMobil.Text) || string.IsNullOrWhiteSpace(txtMerekMobil.Text) ||
+                        string.IsNullOrWhiteSpace(txtTahunProduksi.Text) || string.IsNullOrWhiteSpace(txtTypeMobil.Text) ||
+                        string.IsNullOrWhiteSpace(txtPemilik.Text) || string.IsNullOrWhiteSpace(txtJenisMobil.Text) ||
+                        string.IsNullOrWhiteSpace(txtHarga.Text) || string.IsNullOrWhiteSpace(txtStatus.Text) ||
+                        string.IsNullOrWhiteSpace(txtDeskripsi.Text) || string.IsNullOrWhiteSpace(txtNIKar.Text))
                     {
-                        MessageBox.Show("Harap isi semua data wajib!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Harap isi semua data!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
                     conn.Open();
-                    string query = "INSERT INTO Mobil (ID_Mobil, Merek, Tahun_Produksi, Type_Mobil, Pemilik, Jenis_Mobil, Harga, Status, Deskripsi, NIKar) " +
-                                   "VALUES (@ID_Mobil, @Merek, @Tahun_Produksi, @Type_Mobil, @Pemilik, @Jenis_Mobil, @Harga, @Status, @Deskripsi, @NIKar)";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlCommand cmd = new SqlCommand("TambahMobil", conn))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Menambahkan parameter
                         cmd.Parameters.AddWithValue("@ID_Mobil", txtIDMobil.Text.Trim());
                         cmd.Parameters.AddWithValue("@Merek", txtMerekMobil.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Tahun_Produksi", int.Parse(txtTahunProduksi.Text.Trim()));
+                        cmd.Parameters.AddWithValue("@Tahun_Produksi", Convert.ToInt32(txtTahunProduksi.Text.Trim()));
                         cmd.Parameters.AddWithValue("@Type_Mobil", txtTypeMobil.Text.Trim());
                         cmd.Parameters.AddWithValue("@Pemilik", txtPemilik.Text.Trim());
                         cmd.Parameters.AddWithValue("@Jenis_Mobil", txtJenisMobil.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Harga", decimal.Parse(txtHarga.Text.Trim()));
+                        cmd.Parameters.AddWithValue("@Harga", Convert.ToDecimal(txtHarga.Text.Trim()));
                         cmd.Parameters.AddWithValue("@Status", txtStatus.Text.Trim());
                         cmd.Parameters.AddWithValue("@Deskripsi", txtDeskripsi.Text.Trim());
                         cmd.Parameters.AddWithValue("@NIKar", txtNIKar.Text.Trim());
@@ -194,16 +202,20 @@ namespace UCP_1_PABD
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Data berhasil ditambahkan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            _cache.Remove(CacheKey); // Hapus cache
-                            LoadData();              // Perbarui DGV
-                            ClearForm();             // Bersihkan form input
+                            MessageBox.Show("Data mobil berhasil ditambahkan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            LoadData();  
+                            ClearForm(); 
                         }
                         else
                         {
-                            MessageBox.Show("Data tidak berhasil ditambahkan!", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Data mobil gagal ditambahkan!", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
+                }
+                catch (FormatException fe)
+                {
+                    MessageBox.Show("Input angka salah! Pastikan Tahun dan Harga valid.\n" + fe.Message, "Kesalahan Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 catch (Exception ex)
                 {
@@ -214,82 +226,90 @@ namespace UCP_1_PABD
 
         private void B2(object sender, EventArgs e)
         {
-            if (txtIDMobil.Text == "" || txtMerekMobil.Text == "" || txtTahunProduksi.Text == "" ||
-                txtTypeMobil.Text == "" || txtPemilik.Text == "" || txtJenisMobil.Text == "" ||
-                txtStatus.Text == "" || txtDeskripsi.Text == "" || txtNIKar.Text == "")
+            
+            if (!string.IsNullOrWhiteSpace(txtIDMobil.Text))
             {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-                    string query = "UPDATE Mobil SET Merek = @Merek, Tahun_Produksi = @Tahun_Produksi, Type_Mobil = @Type_Mobil, " +
-                                   "Pemilik = @Pemilik, Jenis_Mobil = @Jenis_Mobil, Harga = @Harga, Status = @Status, Deskripsi = @Deskripsi, NIKar = @NIKar " +
-                                   "WHERE ID_Mobil = @ID_Mobil";
-
-                        cmd.Parameters.AddWithValue("@ID_Mobil", txtIDMobil.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Merek", txtMerekMobil.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Tahun_Produksi", int.Parse(txtTahunProduksi.Text.Trim()));
-                        cmd.Parameters.AddWithValue("@Type_Mobil", txtTypeMobil.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Pemilik", txtPemilik.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Jenis_Mobil", txtJenisMobil.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Harga", decimal.Parse(txtHarga.Text.Trim()));
-                        cmd.Parameters.AddWithValue("@Status", txtStatus.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Deskripsi", txtDeskripsi.Text.Trim());
-                        cmd.Parameters.AddWithValue("@NIKar", txtNIKar.Text.Trim());
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
+                    try
+                    {
+                        conn.Open();
+                        using (SqlCommand cmd = new SqlCommand("PerbaruiMobil", conn))
                         {
-                            MessageBox.Show("Data berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            _cache.Remove(CacheKey); // 🧼 Clear cache
-                            LoadData();              // 🔄 Refresh DGV
-                            ClearForm();             // optional: bersihkan input
-                        }
-                        else
-                        {
-                            MessageBox.Show("Data tidak ditemukan atau gagal diperbarui!", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                           
+                            cmd.Parameters.AddWithValue("@ID_Mobil", txtIDMobil.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Merek", txtMerekMobil.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Tahun_Produksi", int.Parse(txtTahunProduksi.Text.Trim()));
+                            cmd.Parameters.AddWithValue("@Type_Mobil", txtTypeMobil.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Pemilik", txtPemilik.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Jenis_Mobil", txtJenisMobil.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Harga", decimal.Parse(txtHarga.Text.Trim()));
+                            cmd.Parameters.AddWithValue("@Status", txtStatus.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Deskripsi", txtDeskripsi.Text.Trim());
+                            cmd.Parameters.AddWithValue("@NIKar", txtNIKar.Text.Trim());
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Data berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                LoadData();   
+                                ClearForm();  
+                            }
+                            else
+                            {
+                                MessageBox.Show("Data tidak ditemukan atau gagal diperbarui!", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
+                    catch (FormatException fe)
+                    {
+                        MessageBox.Show("Format angka salah! Pastikan Tahun dan Harga adalah angka.\n" + fe.Message, "Kesalahan Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Pilih data dari tabel atau isi ID Mobil terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void B3(object sender, EventArgs e)
         {
             if (dgvMobil.SelectedRows.Count > 0)
             {
-                DialogResult confirm = MessageBox.Show("Yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult confirm = MessageBox.Show(
+                    "Yakin ingin menghapus data mobil ini?",
+                    "Konfirmasi",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
                 if (confirm == DialogResult.Yes)
                 {
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         try
                         {
-                            // Ambil ID dari kolom yang dipakai di DataGridView (lihat LoadData)
-                            string idMobil = dgvMobil.SelectedRows[0].Cells["ID"].Value?.ToString();
-                            if (string.IsNullOrEmpty(idMobil))
-                            {
-                                MessageBox.Show("ID Mobil tidak valid.", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
+                            string idMobil = dgvMobil.SelectedRows[0].Cells["ID"].Value.ToString();
 
                             conn.Open();
-                            string query = "DELETE FROM Mobil WHERE ID_Mobil = @ID_Mobil";
-
-                            using (SqlCommand cmd = new SqlCommand(query, conn))
+                            using (SqlCommand cmd = new SqlCommand("HapusMobil", conn))
                             {
+                                cmd.CommandType = CommandType.StoredProcedure;
                                 cmd.Parameters.AddWithValue("@ID_Mobil", idMobil);
+
                                 int rowsAffected = cmd.ExecuteNonQuery();
                                 if (rowsAffected > 0)
                                 {
-                                    MessageBox.Show("Data berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    _cache.Remove(CacheKey); // Penting: hapus cache
-                                    LoadData();              // Perbarui DGV
-                                    ClearForm();             // Opsional: bersihkan form
+                                    MessageBox.Show("Data mobil berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    LoadData();   
+                                    ClearForm();  
                                 }
                                 else
                                 {
@@ -306,7 +326,7 @@ namespace UCP_1_PABD
             }
             else
             {
-                MessageBox.Show("Pilih data yang akan dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Pilih data mobil yang akan dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -357,7 +377,7 @@ namespace UCP_1_PABD
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-                Preview_Data(filePath);  // Display preview before importing
+                Preview_Data(filePath); 
             }
         }
 
@@ -367,19 +387,19 @@ namespace UCP_1_PABD
             {
                 using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    IWorkbook workbook = new XSSFWorkbook(fs); // Membuka workbook Excel
-                    ISheet sheet = workbook.GetSheetAt(0);     // Mendapatkan worksheet pertama
+                    IWorkbook workbook = new XSSFWorkbook(fs); 
+                    ISheet sheet = workbook.GetSheetAt(0);     
                     DataTable dt = new DataTable();
 
-                    // Membaca header kolom
+                   
                     IRow headerRow = sheet.GetRow(0);
                     foreach (var cell in headerRow.Cells)
                     {
                         dt.Columns.Add(cell.ToString());
                     }
 
-                    // Membaca sisa data
-                    for (int i = 1; i <= sheet.LastRowNum; i++)  // Lewati baris header
+                   
+                    for (int i = 1; i <= sheet.LastRowNum; i++)  
                     {
                         IRow dataRow = sheet.GetRow(i);
                         DataRow newRow = dt.NewRow();
@@ -392,9 +412,9 @@ namespace UCP_1_PABD
                         dt.Rows.Add(newRow);
                     }
 
-                    // Membuka PreviewForm dan mengirimkan DataTable ke form tersebut
+                    
                     Preview_Data previewForm = new Preview_Data(dt);
-                    previewForm.ShowDialog(); // Tampilkan PreviewForm
+                    previewForm.ShowDialog();
                 }
             }
             catch (Exception ex)
