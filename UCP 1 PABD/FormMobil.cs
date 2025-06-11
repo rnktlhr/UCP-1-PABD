@@ -145,7 +145,6 @@ namespace UCP_1_PABD
             string merek = txtMerek.Text.Trim();
             string tipe = txtTipe.Text.Trim();
             string deskripsi = txtDeskripsi.Text.Trim();
-            decimal harga;
             int tahun;
 
             if (string.IsNullOrEmpty(merek) || string.IsNullOrEmpty(tipe) ||
@@ -155,9 +154,6 @@ namespace UCP_1_PABD
                 MessageBox.Show("Format input salah. Tahun dan harga harus angka.", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            DialogResult confirm = MessageBox.Show("Yakin ingin mengubah data ini?", "Konfirmasi Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirm != DialogResult.Yes) return;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -170,7 +166,6 @@ namespace UCP_1_PABD
                 WHERE ID_Mobil = @ID", conn))
                     {
                         cmd.Parameters.AddWithValue("@Merek", merek);
-                        cmd.Parameters.AddWithValue("@Tahun", tahun);
                         cmd.Parameters.AddWithValue("@Tipe", tipe);
                         cmd.Parameters.AddWithValue("@Deskripsi", deskripsi);
                         cmd.Parameters.AddWithValue("@Harga", harga);
