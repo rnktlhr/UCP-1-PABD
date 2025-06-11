@@ -108,7 +108,6 @@ namespace UCP_1_PABD
         private void LoadData()
         {
             DataTable dt;
-
             if (_cache.Contains(CacheKey))
             {
                 dt = _cache.Get(CacheKey) as DataTable;
@@ -135,7 +134,6 @@ namespace UCP_1_PABD
                     var da = new SqlDataAdapter(query, conn);
                     da.Fill(dt);
                 }
-
                 _cache.Add(CacheKey, dt, _policy);
             }
 
@@ -220,10 +218,6 @@ namespace UCP_1_PABD
                 txtTypeMobil.Text == "" || txtPemilik.Text == "" || txtJenisMobil.Text == "" ||
                 txtStatus.Text == "" || txtDeskripsi.Text == "" || txtNIKar.Text == "")
             {
-                MessageBox.Show("Harap isi semua data sebelum memperbarui!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
@@ -292,7 +286,6 @@ namespace UCP_1_PABD
                             {
                                 cmd.Parameters.AddWithValue("@ID_Mobil", idMobil);
                                 int rowsAffected = cmd.ExecuteNonQuery();
-
                                 if (rowsAffected > 0)
                                 {
                                     MessageBox.Show("Data berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
