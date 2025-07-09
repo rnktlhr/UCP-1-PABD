@@ -449,5 +449,12 @@ namespace UCP_1_PABD
             formShowroom.Show();
             this.Hide();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            FormHarga formHarga = new FormHarga();
+            formHarga.Show();
+            this.Hide();
+        }
     }
 }
