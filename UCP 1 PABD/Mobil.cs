@@ -21,9 +21,9 @@ namespace UCP_1_PABD
 {
     public partial class Mobil : Form
     {
-        private string connectionString = "Data Source= LAPTOP-872LO0G1\\RINAKIT;Initial Catalog=SowroomMobil;Integrated Security=True";
+        ClassConn kn = new ClassConn();
+        string Strconnect = "";
 
-       
         private readonly MemoryCache _cache = MemoryCache.Default;
 
         private readonly CacheItemPolicy _policy = new CacheItemPolicy
